@@ -1,4 +1,4 @@
-class Usuario {
+/* class Usuario {
     constructor(nombre, apellido, libro, mascotas) {
         this.nombre = String(nombre),
         this.apellido = String(apellido),
@@ -20,4 +20,4 @@ console.log(usuario.getBookName())
 
 
 console.log("hola que tal")
-console.log("hola que tal")
+console.log("hola que tal") */
