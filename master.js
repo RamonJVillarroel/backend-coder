@@ -86,20 +86,23 @@ class Contenedor {
             console.log(err)
         }
     }
- /*    async productoAzar() {
+    async productoAzar() {
         try {
             const arr = await this.getAll();
-      
-     
-            return   arr[Math.floor(Math.random() * arr.length)]
+            let azar = arr[Math.floor(Math.random() * arr.length)]
+            
+            return   azar
         }
         catch (error) {
             console.log(error);
         }
 
 
-    } */
+    }
 }
-
+/* let container = new Contenedor('./producto.json');
+container.productoAzar().then(res => {
+    console.log(res)
+}) */
 
 module.exports = Contenedor

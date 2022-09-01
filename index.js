@@ -1,17 +1,14 @@
 const express = require('express');
-//const Contenedor = require('./master');
-//let container = new Contenedor ('./producto.json');
-let productos = require('./producto.json');
+const Contenedor = require('../backend-coder-master/master');
+let container = new Contenedor('./producto.json');
 const PORT = process.env.PORT || 8080;
-function productoAzar (data){
-  return  data[Math.floor(Math.random() * data.length)]
-}
+
 const app = express();
 app.get('/productos', (req, res) => {
-   res.send(productos)
+  container.getAll().then(azar => res.send(azar));
 });
 app.get('/productoRandon', (req, res) => {
-   res.send(productoAzar(productos));
+container.productoAzar().then(azar => res.send(azar));
 });
 const connectedServer = app.listen(PORT, () => {
     console.log('SERVIDOR ACTIVO');
