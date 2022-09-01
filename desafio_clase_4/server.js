@@ -1,4 +1,4 @@
-const Contenedor = require('./master.js')
+/* const Contenedor = require('../desafio_clase_4/mos')
 
 let container = new Contenedor('./items/items.json')
 
@@ -14,6 +14,6 @@ newData = {
 }
 container.save(newData).then(res => res)
 
-//container.deleteById(5).then(res => res)
+container.deleteById(5).then(res => res)
 
-//container.deleteAll().then(res => res)
+container.deleteAll().then(res => res) */

@@ -1,4 +1,4 @@
-const fs = require('fs')
+const fs = require('fs');
 
 class Contenedor {
     constructor(fileName) {
@@ -13,14 +13,14 @@ class Contenedor {
             }
             else {
                 let lastItem = arr[arr.length - 1]
-                newData.id = lastItem.id +1
+                newData.id = lastItem.id + 1
             }
             arr.push(newData)
             await fs.promises.writeFile(this.fileName, JSON.stringify(arr))
             console.log(`se añadio un item nuevo: ${newData.id}`)
-            return  newData.id
+            return newData.id
         }
-        catch(err) {
+        catch (err) {
             console.log(err)
         }
     }
@@ -28,16 +28,17 @@ class Contenedor {
     async getAll() {
 
         try {
-            const data = await fs.promises.readFile(this.fileName,'utf-8')
+            const data = await fs.promises.readFile(this.fileName, 'utf-8')
+
             return JSON.parse(data)
         }
-        catch(err) {
+        catch (err) {
             return []
         }
     }
 
     async getById(id) {
-        
+
         try {
             const arr = await this.getAll()
             let match = arr.filter((item) => item.id === id)
@@ -50,7 +51,7 @@ class Contenedor {
                 return null
             }
         }
-        catch(err) {
+        catch (err) {
             console.log(err)
         }
     }
@@ -70,7 +71,7 @@ class Contenedor {
             }
 
         }
-        catch(err) {
+        catch (err) {
             console.log(err)
         }
     }
@@ -81,10 +82,24 @@ class Contenedor {
             return console.log(`Lista Borrada`)
 
         }
-        catch(err) {
+        catch (err) {
             console.log(err)
         }
     }
+ /*    async productoAzar() {
+        try {
+            const arr = await this.getAll();
+      
+     
+            return   arr[Math.floor(Math.random() * arr.length)]
+        }
+        catch (error) {
+            console.log(error);
+        }
+
+
+    } */
 }
+
 
 module.exports = Contenedor
