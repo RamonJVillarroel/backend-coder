@@ -100,9 +100,5 @@ class Contenedor {
 
     }
 }
-/* let container = new Contenedor('./producto.json');
-container.productoAzar().then(res => {
-    console.log(res)
-}) */
 
 module.exports = Contenedor
