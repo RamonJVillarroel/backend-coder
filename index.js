@@ -1,19 +1,11 @@
 const express = require('express');
-const Contenedor = require('../backend-coder-master/master');
-let container = new Contenedor('./producto.json');
+const apiRouter = require('./routers/app.routes');
 const PORT = process.env.PORT || 8080;
-
 const app = express();
-app.get('/', (req, res) => {
-  res.send('hola mundo');
-});
-
-app.get('/productos', (req, res) => {
-  container.getAll().then(azar => res.send(azar));
-});
-app.get('/productoRandon', (req, res) => {
-  container.productoAzar().then(azar => res.send(azar));
-});
+app.use(express.json())//parsea lo que viene del cliente en json
+app.use(express.urlencoded({extended: true}))//parsea los formularios // el extended parsea los datos complejos
+app.use(express.static('public'));
+app.use("/api/productos",apiRouter);
 const connectedServer = app.listen(PORT, () => {
   console.log('SERVIDOR ACTIVO');
 });
