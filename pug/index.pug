@@ -1,0 +1,11 @@
+html
+	body
+		form(action='/pug' method='post')
+			label(for='name') nombre 
+			input(type='text' name='name' id='name')
+			label(for='price') precio 
+			input(type='number' name='price' id='price')
+			label(for='image') imagen 
+			input(type='text' name='image' id='image')
+			button(type="submit") Submit
+		a(href='/pug') mostrar productos    

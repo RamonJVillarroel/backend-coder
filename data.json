@@ -46,5 +46,12 @@
     "name": "weedle",
     "price": 2545,
     "image": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/013.png"
+  },
+  {
+    "id": 9,
+    "name": "venusaur",
+    "price": 541,
+    "image": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/003.png"
   }
+ 
 ]
