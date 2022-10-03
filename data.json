@@ -52,6 +52,11 @@
     "name": "venusaur",
     "price": 541,
     "image": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/003.png"
+  },
+  {
+    "id": 10,
+    "name": "venusaur",
+    "price": 8547,
+    "image": "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/003.png"
   }
- 
 ]
