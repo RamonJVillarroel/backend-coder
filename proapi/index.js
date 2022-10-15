@@ -3,8 +3,8 @@ const { engine } = require('express-handlebars');
 const path = require('path');
 const { Server: HttpServer } = require('http');
 const { Server: SocketServer } = require('socket.io');
-const productos = require('./proapi/productos');
-const memoria = require('./proapi/memoria');
+const productos = require('./productos');
+const memoria = require('./memoria');
 
 const PORT = process.env.PORT || 8080;
 
