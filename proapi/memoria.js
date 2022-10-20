@@ -1,84 +1,47 @@
-const { promises: fs } = require('fs')
+const knex = require("knex");
 
-class memoria {
-
-    constructor(ruta) {
-        this.ruta = ruta;
+class Messages {
+    constructor(tableName, dbConfig) {
+      (this.table = tableName), (this.knex = knex(dbConfig));
+  
+      this.knex.schema
+        .hasTable(this.table)
+        .then((exists) => {
+          if (!exists) {
+            return this.knex.schema.createTable(this.table, (table) => {
+              table.increments("id").notNullable().primary();
+              table.string("email", 100).notNullable();
+              table.string("message").notNullable();
+              table.string("date", 50).notNullable();
+            });
+          }
+        })
+        .catch((err) => console.log("error en constructor", err));
     }
 
-    async listar(id) {
-        const objs = await this.listarAll()
-        const buscado = objs.find(o => o.id == id)
-        return buscado
-    }
-
-    async listarAll() {
+    async addMessage(data){
         try {
-            const objs = await fs.readFile(this.ruta, 'utf-8')
-            return JSON.parse(objs)
+            await this.knex(this.table).insert(data)
         } catch (error) {
-            return []
+            console.log("error al añadir mensaje", error);
+        } finally{
+            /* knex(this.config).destroy(); */
         }
     }
 
-    async guardar(obj) {
-        const objs = await this.listarAll()
-
-        let newId
-        if (objs.length == 0) {
-            newId = 1
-        } else {
-            newId = objs[objs.length - 1].id + 1
-        }
-
-        const newObj = { ...obj, id: newId }
-        objs.push(newObj)
-
+    async getMessages(){
         try {
-            await fs.writeFile(this.ruta, JSON.stringify(objs, null, 2))
-            return newId
+            const messages = await this.knex
+             .from(this.table)
+             .select('*');
+             console.log(messages);
+            return messages; 
         } catch (error) {
-            throw new Error(`Error al guardar: ${error}`)
-        }
-    }
-
-    async actualizar(elem, id) {
-        const objs = await this.listarAll()
-        const index = objs.findIndex(o => o.id == id)
-        if (index == -1) {
-            throw new Error(`Error al actualizar: no se encontró el id ${id}`)
-        } else {
-            objs[index] = elem
-            try {
-                await fs.writeFile(this.ruta, JSON.stringify(objs, null, 2))
-            } catch (error) {
-                throw new Error(`Error al borrar: ${error}`)
-            }
-        }
-    }
-
-    async borrar(id) {
-        const objs = await this.listarAll()
-        const index = objs.findIndex(o => o.id == id)
-        if (index == -1) {
-            throw new Error(`Error al borrar: no se encontró el id ${id}`)
-        }
-
-        objs.splice(index, 1)
-        try {
-            await fs.writeFile(this.ruta, JSON.stringify(objs, null, 2))
-        } catch (error) {
-            throw new Error(`Error al borrar: ${error}`)
-        }
-    }
-
-    async borrarAll() {
-        try {
-            await fs.writeFile(this.ruta, JSON.stringify([], null, 2))
-        } catch (error) {
-            throw new Error(`Error al borrar todo: ${error}`)
+            console.log("error al obtener mensajes", error);
+        } finally{
+            /* knex(this.config).destroy(); */
         }
     }
 }
 
-module.exports = memoria
+module.exports = Messages;
